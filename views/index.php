@@ -1,6 +1,5 @@
 <?php
 require("../lib/Autoloader.php");
-require("../lib/MySQL.php");
-require("../lib/Router.php");
+require("../lib/Connection.php");
 $autoloader = new \Autoloader\Autoloader();
 $router = new Router();
