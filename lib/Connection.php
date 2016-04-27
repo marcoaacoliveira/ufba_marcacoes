@@ -1,5 +1,6 @@
 <?php
 namespace Database;
+
 require('../config.php');
 
 class Connection
