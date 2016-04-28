@@ -66,6 +66,8 @@ class Router
      * Faz uma chamada a função do Controller que representa a Action com os Params
      */
     public function call(){
-        call_user_func_array(array($this->controller,$this->action), $this->params);
+        $controller = new $this->controller();
+        $action = $this->action;
+        $controller->$action($this->params);
     }
 }

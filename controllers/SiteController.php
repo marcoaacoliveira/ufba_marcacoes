@@ -1,8 +1,8 @@
 <?php
 
-class SiteController
+class SiteController extends Controller
 {
     public function home(){
-        echo "Olá, seja bem vindo as marcações de consulta";
+        echo $this->render('home','Site',[]);
     }
 }
