@@ -1,2 +1,2 @@
 <?php
-echo "alou";
+header('Location: site/home');
