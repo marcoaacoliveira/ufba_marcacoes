@@ -3,6 +3,6 @@
 class SiteController extends Controller
 {
     public function home(){
-        echo $this->render('home','Site',[]);
+        echo $this->render([]);
     }
 }
