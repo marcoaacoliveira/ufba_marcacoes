@@ -1,7 +1,8 @@
 <?php
-
+require '../lib/Arrayable.php';
 class Model
 {
+    use \Helper\Arrayable;
     protected $table;
     protected $connection;
 
@@ -18,9 +19,22 @@ class Model
      */
     public function find($id)
     {
-        $sth = $this->connection->prepare("SELECT * FROM {$this->table} WHERE id=?");
+        $sth = $this->connection->prepare("SELECT * FROM {$this->table} WHERE id= ?");
         $sth->execute(array($id));
-        return $sth->fetch(\PDO::FETCH_ASSOC);
+        return $sth->fetchObject(get_class($this));
+    }
+
+    /**
+     * Procurar um campo especifico na tabela desejada
+     * @param $field
+     * @param $value
+     * @return mixed
+     */
+    public function findBy($field, $value)
+    {
+        $sth = $this->connection->prepare("SELECT * FROM {$this->table} WHERE {$field} = ?");
+        $sth->execute(array($value));
+        return $sth->fetchObject(get_class($this));
     }
 
     /**
