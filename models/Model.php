@@ -1,15 +1,37 @@
 <?php
 require '../lib/Arrayable.php';
+
 class Model
 {
     use \Helper\Arrayable;
-    protected $table;
     protected $connection;
+    protected $table;
 
     public function __construct()
     {
-        $this->table = strtolower(get_class($this) . 's');
+        $this->table = strtolower(get_class($this));
         $this->connection = \Database\Connection::getInstance();
+    }
+
+    //METODOS PUBLIC
+    public function create()
+    {
+        $sql = "INSERT INTO `{$this->table}`( ";
+        $fields = $this->getFields();
+        $vars = $this->cleanArray($this->toArray());
+        $questions = array();
+        foreach ($vars as $key => $query) {
+            $questions[$key] = ":$key";
+        }
+        $fields = implode(', ', $fields);
+        $questions = implode(', ', $questions);
+        $sql .= $fields . ") VALUES (";
+        $sql .= $questions . ") ";
+        $sth = $this->connection->prepare($sql);
+        foreach ($vars as $key => $value) {
+            $sth->bindValue(":$key", $value);
+        }
+        return array($sth->execute(), $this->connection->lastInsertId());
     }
 
     /**
@@ -22,6 +44,18 @@ class Model
         $sth = $this->connection->prepare("SELECT * FROM {$this->table} WHERE id= ?");
         $sth->execute(array($id));
         return $sth->fetchObject(get_class($this));
+    }
+
+
+    /**
+     * Procura todas as linhas
+     * @return array
+     */
+    public function findAll()
+    {
+        $sth = $this->connection->prepare("SELECT * FROM {$this->table}");
+        $sth->execute();
+        return $sth->fetchAll(\PDO::FETCH_CLASS, get_class($this));
     }
 
     /**
@@ -37,16 +71,65 @@ class Model
         return $sth->fetchObject(get_class($this));
     }
 
+
     /**
-     * Procura todas as linhas
-     * @return array
+     * Persiste no banco de dados o objeto
      */
-    public function findAll()
+    public function save()
     {
-        $sth = $this->connection->prepare("SELECT * FROM {$this->table}");
-        $sth->execute();
-        return $sth->fetchAll(\PDO::FETCH_CLASS, get_class($this));
+        if ($this->getId() == null) {
+            $this->create();
+        } else {
+            $this->update();
+        }
     }
 
+    /**
+     * Atualiza a persistencia do objeto no banco de dados
+     * @return array
+     */
+    public function update()
+    {
+        $vars = $this->cleanArray($this->toArray());
+        $sql = "UPDATE `{$this->table}` SET ";
+        $queries = $vars;
+        foreach ($queries as $key => $query) {
+            $queries[$key] = "`$key` = :$key";
+        }
+        $sql .= implode(", ", $queries);
+        $sql .= " WHERE `id` = :id";
+        $sth = $this->connection->prepare($sql);
+        foreach ($vars as $key => $value) {
+            $sth->bindValue(":$key", $value);
+        }
+        return array($sth->execute(), null);
+    }
+
+    //METODOS PROTECTED
+    protected function cleanArray($array)
+    {
+        unset($array["table"]);
+        unset($array["id"]);
+        $array = $this->removeRelatedValues($array);
+        return $array;
+    }
+
+    protected function getFields()
+    {
+        $array = $this->cleanArray($this->toArray());
+        return array_keys($array);
+    }
+
+    /**
+     * Clean the array removing all the related values.
+     * @param $array
+     * @return array
+     */
+    protected function removeRelatedValues($array)
+    {
+        return array_filter($array, function ($value) {
+            return !is_array($value);
+        });
+    }
 
 }
