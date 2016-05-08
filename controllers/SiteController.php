@@ -2,7 +2,8 @@
 
 class SiteController extends Controller
 {
-    public function home(){
+    public function home()
+    {
         echo $this->render([]);
     }
 }
