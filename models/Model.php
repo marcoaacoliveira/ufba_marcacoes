@@ -1,5 +1,5 @@
 <?php
-require '../lib/Arrayable.php';
+require '../lib/Helpers/Arrayable.php';
 
 class Model
 {
@@ -7,8 +7,13 @@ class Model
     protected $connection;
     protected $table;
 
-    public function __construct()
+    public function __construct($array = [])
     {
+        if ($array != []) {
+            foreach ($array as $key => $value) {
+                $this->$key = $value;
+            }
+        }
         $this->table = strtolower(get_class($this));
         $this->connection = \Database\Connection::getInstance();
     }
@@ -77,10 +82,10 @@ class Model
      */
     public function save()
     {
-        if ($this->getId() == null) {
-            $this->create();
+        if (!(isset($this->id) && !empty($this->id))) {
+            return $this->create();
         } else {
-            $this->update();
+            return $this->update();
         }
     }
 
@@ -109,6 +114,7 @@ class Model
     protected function cleanArray($array)
     {
         unset($array["table"]);
+        unset($array["connection"]);
         unset($array["id"]);
         $array = $this->removeRelatedValues($array);
         return $array;

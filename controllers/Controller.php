@@ -2,6 +2,14 @@
 
 class Controller
 {
+    public function __construct()
+    {
+        $this->request = [];
+        if (isset($_POST) && !empty($_POST)) {
+            $this->request = array_merge($this->request, $_POST);
+        }
+    }
+
     public function render($data = array())
     {
         $className = $this->getModelName();
@@ -16,5 +24,10 @@ class Controller
     public function getModelName()
     {
         return str_replace('Controller', '', get_class($this));
+    }
+
+    public function redirect($to)
+    {
+        header("Location: $to");
     }
 }
