@@ -4,6 +4,7 @@ class SiteController extends Controller
 {
     public function home()
     {
-        echo $this->render([]);
+        session_start();
+        echo $this->render();
     }
 }

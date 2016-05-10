@@ -5,7 +5,7 @@ class User extends Model
     public function save()
     {
         $this->securePassword();
-        parent::save();
+        return parent::save();
     }
 
     public function verifyPassword($pass){
