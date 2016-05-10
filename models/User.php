@@ -8,6 +8,11 @@ class User extends Model
         parent::save();
     }
 
+    public function verifyPassword($pass){
+        return $this->password==md5($pass);
+    }
+
+
     private function securePassword()
     {
         $this->password = md5($this->password);
