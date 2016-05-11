@@ -2,10 +2,8 @@
 
 class DoctorController extends Controller
 {
-    public function create()
+    public function create($id)
     {
-        var_dump("medico");
-        die();
-        echo $this->render();
+        echo $this->render(compact('id'));
     }
 }

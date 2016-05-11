@@ -1,8 +1,8 @@
 <?php
 
-class Client extends Model
+class Client extends Model implements RedirectInterface
 {
     public function registrationRoute(){
-        return '/client/create';
+        return '/animal/create';
     }
 }
