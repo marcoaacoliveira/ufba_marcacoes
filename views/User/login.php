@@ -20,7 +20,7 @@ if (isset($_SESSION['log'])) {
             </div>
         </div>
     </form>
-  
+
 
 
 <?php require(dirname(dirname(__FILE__)) . '/includes/footer.php') ?>

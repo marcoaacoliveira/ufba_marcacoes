@@ -40,14 +40,15 @@ class UserController extends Controller
 
     public function store()
     {
-        $next = new $this->request['type']();
         unset($this->request['type']);
         $user = new User($this->request);
         if ($user->save()) {
-            $_SESSION['message'] = "Usuário salvo com sucesso";
-            return $this->redirect($next->registrationRoute());
+            $_SESSION['log'] = "Login realizado com sucesso";
+            $_SESSION['user'] = $user->login;
+            return $this->redirect('/site/home');
         }
-        return $this->redirect("/user/index");
+        $_SESSION['log'] = "Falha no cadastro";
+        return $this->redirect("/user/create");
     }
 
     public function index()

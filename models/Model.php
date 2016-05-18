@@ -69,6 +69,7 @@ class Model
      * @param $value
      * @return mixed
      */
+
     public function findBy($field, $value)
     {
         $sth = $this->connection->prepare("SELECT * FROM {$this->table} WHERE {$field} = ?");
@@ -83,7 +84,9 @@ class Model
     public function save()
     {
         if (!(isset($this->id) && !empty($this->id))) {
-            return $this->create();
+            $result = $this->create();
+            $this->id = $result[1];
+            return $result;
         } else {
             return $this->update();
         }

@@ -10,6 +10,8 @@ class AnimalController extends Controller
 
     public function create($id)
     {
+        var_dump($id);
+        die();
         echo $this->render(compact('id'));
     }
 
