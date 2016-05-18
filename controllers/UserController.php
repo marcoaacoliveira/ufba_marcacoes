@@ -26,7 +26,7 @@ class UserController extends Controller
             if ($user = $this->user->findBy('login', $this->request['login'])) {
                 if ($user->verifyPassword($this->request['password'])) {
                     $_SESSION['log'] = "Login realizado com sucesso";
-                    $_SESSION['user'] = $user->login;
+                    $_SESSION['login'] = $user->login;
                     return $this->redirect("/site/home");
                 } else {
                     $_SESSION['log'] = "Login ou senha incorreto";

@@ -36,11 +36,11 @@
 
         <form action="/user/auth" method="post">
             <div class="form-group has-feedback">
-                <input type="login" class="form-control" placeholder="Login">
+                <input name="login" type="text" class="form-control" placeholder="Login">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Senha">
+                <input name="password" type="password" class="form-control" placeholder="Senha">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
