@@ -1,7 +1,6 @@
 <?php require(dirname(dirname(__FILE__)).'/includes/header.php');
 session_start();
 if (isset($_SESSION['log'])) {
-    echo $_SESSION['log'];
     unset($_SESSION['log']);
 }
 

@@ -119,6 +119,7 @@ class Model
         unset($array["table"]);
         unset($array["connection"]);
         unset($array["id"]);
+        unset($array["observers"]);
         $array = $this->removeRelatedValues($array);
         return $array;
     }

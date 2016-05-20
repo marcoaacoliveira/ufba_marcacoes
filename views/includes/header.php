@@ -64,6 +64,11 @@
             </a>
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown tasks-menu">
+                        <a href="/user/logout">Deslogar</a>
+                    </li>
+                </ul>
             </div>
         </nav>
     </header>

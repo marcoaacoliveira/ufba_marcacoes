@@ -19,6 +19,13 @@ class UserController extends Controller
         echo $this->render();
     }
 
+    public function logout()
+    {
+        session_start();
+        unset($_SESSION['login']);
+        return $this->redirect('/user/login');
+    }
+
     public function auth()
     {
         session_start();
