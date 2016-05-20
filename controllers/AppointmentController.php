@@ -32,5 +32,15 @@ class AppointmentController extends Controller {
         }
         return $this->redirect("/user/index");
     }
+    
+    public function remark($id) {
+        $next = new $this->request['type']();
+        unset($this->request['type']());
+        $appointment = new Appointment($this->request);
+        if ($appointment->delete($id)) {
+            return $this->redirect($this->registrationRoute());
+        }
+        return $this->redirect("/user/index");
+    }
 }
 
