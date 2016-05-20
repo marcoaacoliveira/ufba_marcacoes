@@ -21,5 +21,16 @@ class AppointmentController extends Controller {
         }
         return $this->redirect("/user/index");
     }
+    
+    public function cancel($id){
+        $next = new $this->request['type']();
+        unset($this->request['type']());
+        $appointment = new Appointment($this->request);
+        if ($appointment->delete($id)) {
+            $_SESSION['message'] = "Consulta desmarcada com sucesso!";
+            return $this->redirect($nest->registrationRoute());
+        }
+        return $this->redirect("/user/index");
+    }
 }
 
