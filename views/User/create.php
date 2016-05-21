@@ -42,6 +42,12 @@
             </div>
 
             <div class="form-group">
+                <label>Email</label>
+                <input name="email" type="text" class="form-control"/>
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+
+            <div class="form-group">
                 <label>Senha</label>
                 <input name="password" type="password" class="form-control"/>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>

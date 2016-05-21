@@ -47,11 +47,12 @@ class UserController extends Controller
 
     public function store()
     {
+        session_start();
         unset($this->request['type']);
         $user = new User($this->request);
         if ($user->save()) {
             $_SESSION['log'] = "Login realizado com sucesso";
-            $_SESSION['user'] = $user->login;
+            $_SESSION['login'] = $user->login;
             return $this->redirect('/site/home');
         }
         $_SESSION['log'] = "Falha no cadastro";
