@@ -19,13 +19,6 @@ class UserController extends Controller
         echo $this->render();
     }
 
-    public function logout()
-    {
-        session_start();
-        unset($_SESSION['login']);
-        return $this->redirect('/user/login');
-    }
-
     public function auth()
     {
         session_start();
@@ -47,12 +40,11 @@ class UserController extends Controller
 
     public function store()
     {
-        session_start();
         unset($this->request['type']);
         $user = new User($this->request);
         if ($user->save()) {
             $_SESSION['log'] = "Login realizado com sucesso";
-            $_SESSION['login'] = $user->login;
+            $_SESSION['user'] = $user->login;
             return $this->redirect('/site/home');
         }
         $_SESSION['log'] = "Falha no cadastro";

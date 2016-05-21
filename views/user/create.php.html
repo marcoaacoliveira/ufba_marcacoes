@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>HOSPMEV - Cadastro</title>
+    <link href="../../vendor/css/style.css" rel="stylesheet">
+
+</head>    
+<body class="login">
+    <form action="/user/store">
+        <div id="centro-main"> 
+            <div id="centro-div">
+                <img src="../../vendor/img/logo.png" alt="" class="imagem-logo"width="50%" height="50%"> 
+                 <div class="form-group">
+                    <input name="login" type="text" class="feedback-input form-input" placeholder="Usuário" requ/>
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+                 <div class="form-group">
+                    <input name="password" type="password" class="feedback-input form-input" placeholder="Senha"/>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="form-group">
+                    <label>Sou um</label>
+                    <select name="type" class="feedback-input form-input">
+                        <option value=""></option>
+                        <option value="Client">Cliente</option>
+                        <option value="Client">Médico</option>
+                        <option value="Client">Administrador</option>
+                    </select>
+                </div>
+                <div class="submit">
+                    <input type="submit" value="Acessar" id="button"/>
+                    <div class="ease"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <!-- /.form-box -->
+<!-- /.register-box -->
+
+<!-- jQuery 2.2.0 -->
+<script src="/vendor/adminlte/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="/vendor/adminlte/bootstrap/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="/vendor/adminlte/plugins/iCheck/icheck.min.js"></script>
+<script>
+    $(function () {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
+        });
+    });
+</script>
+</body>
+</html>
