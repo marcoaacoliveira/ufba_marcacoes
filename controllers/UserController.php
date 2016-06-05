@@ -19,6 +19,13 @@ class UserController extends Controller
         echo $this->render();
     }
 
+    public function logout()
+    {
+        session_start();
+        unset($_SESSION['login']);
+        return $this->redirect('/user/login');
+    }
+
     public function auth()
     {
         session_start();
@@ -26,7 +33,7 @@ class UserController extends Controller
             if ($user = $this->user->findBy('login', $this->request['login'])) {
                 if ($user->verifyPassword($this->request['password'])) {
                     $_SESSION['log'] = "Login realizado com sucesso";
-                    $_SESSION['user'] = $user->login;
+                    $_SESSION['login'] = $user->login;
                     return $this->redirect("/site/home");
                 } else {
                     $_SESSION['log'] = "Login ou senha incorreto";
@@ -40,11 +47,16 @@ class UserController extends Controller
 
     public function store()
     {
+        session_start();
+        unset($this->request['type']);
         $user = new User($this->request);
         if ($user->save()) {
-            $_SESSION['message'] = "Usuário salvo com sucesso";
+            $_SESSION['log'] = "Login realizado com sucesso";
+            $_SESSION['login'] = $user->login;
+            return $this->redirect('/site/home');
         }
-        $this->redirect("/user/index");
+        $_SESSION['log'] = "Falha no cadastro";
+        return $this->redirect("/user/create");
     }
 
     public function index()
